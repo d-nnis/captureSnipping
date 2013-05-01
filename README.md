@@ -1,5 +1,7 @@
-captureSnipping
+CaptureSnipping
 ===============
+
+get crop details from Irfan View via Win32::GuiTest
 
 sample-output
 =============
