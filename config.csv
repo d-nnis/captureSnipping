@@ -1,0 +1,7 @@
+# config file
+#key;value
+
+[allgemein]
+#logdir;i:\vera6 2012\process_control\log\
+iview;c:\Program Files (x86)\IrfanView\i_view32.exe
+

@@ -5,10 +5,13 @@ use Win32::Clipboard;
 use feature qw(switch);
 use Essent;
 #use Win32::GuiTest qw(FindWindowLike);
+#my %config = File::readfile("config.csv", 'config');
 
 
 {
 	package Irfan;
+	
+		
 	
 	sub new {
 		my $class = shift;
@@ -22,14 +25,14 @@ use Essent;
 	
 	sub init {
 		my $self = shift;
-		my $target_window = "IrfanView";
-		#my @windows = Win32::GuiTest::FindWindowLike(undef, $target_window);
-		my @windows = Win32::GuiTest::FindWindowLike(undef, " - IrfanView");
-		die "Could not find $target_window\n" unless @windows;
-		die "There is more than one $target_window running\n" if @windows > 2;
+		my $target_window = " - IrfanView";
+		my @windows = Win32::GuiTest::FindWindowLike(undef, $target_window);
+		die "Could not find $target_window or no image loaded\n" unless @windows;
+		die "There is more than one $target_window running\n" if @windows > 1;
 		$self->{irfan} = $windows[0];
 		print "found window $self->{irfan}\n";
 		Win32::GuiTest::SetForegroundWindow($self->{irfan});
+		%{$self->{config}} = File::readfile("config.csv", 'config');
 	}
 	
     sub get_option {
@@ -67,7 +70,13 @@ use Essent;
 		my $self = shift;
 		$self->init() if $self->option("shell");
 		my $windowtitle = Win32::GuiTest::GetWindowText($self->{irfan});
-		print "Window-Title:", $windowtitle;
+		#my %config = File::readfile("config.csv", 'config');
+
+		if (($self->{X}, $self->{Y}, $self->{dimX}, $self->{dimY}, $self->{noPixels}) = $windowtitle =~ /IrfanView.+Selection: (\d+), (\d+); (\d+) x (\d+); (\d+[\.\d*]\d*)/ ) {
+				# selection made
+		} else {
+			print "No selection made!?\n";
+		}
 		
 	}
 
