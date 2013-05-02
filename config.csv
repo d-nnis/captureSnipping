@@ -2,6 +2,7 @@
 #key;value
 
 [allgemein]
-#logdir;i:\vera6 2012\process_control\log\
-iview;c:\Program Files (x86)\IrfanView\i_view32.exe
+dir;i:\projekte\vera6 2012\toSAP\
+#iview;c:\Program Files (x86)\IrfanView\i_view32.exe
+iview;c:\Programme\IrfanView\i_view32.exe
 

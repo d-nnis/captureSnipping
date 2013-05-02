@@ -5,13 +5,14 @@ use Win32::Clipboard;
 use feature qw(switch);
 use Essent;
 #use Win32::GuiTest qw(FindWindowLike);
+
+# funzt nicht!?
 #my %config = File::readfile("config.csv", 'config');
+
 
 
 {
 	package Irfan;
-	
-		
 	
 	sub new {
 		my $class = shift;
@@ -70,14 +71,12 @@ use Essent;
 		my $self = shift;
 		$self->init() if $self->option("shell");
 		my $windowtitle = Win32::GuiTest::GetWindowText($self->{irfan});
-		#my %config = File::readfile("config.csv", 'config');
-
-		if (($self->{X}, $self->{Y}, $self->{dimX}, $self->{dimY}, $self->{noPixels}) = $windowtitle =~ /IrfanView.+Selection: (\d+), (\d+); (\d+) x (\d+); (\d+[\.\d*]\d*)/ ) {
+		if (($self->{imageFile}, $self->{X}, $self->{Y}, $self->{dimX}, $self->{dimY}, $self->{noPixels}) = $windowtitle =~ /(.+\..+) - IrfanView.+Selection: (\d+), (\d+); (\d+) x (\d+); (\d+[\.\d*]\d*)/ ) {
 				# selection made
 		} else {
 			print "No selection made!?\n";
 		}
-		
+		return ($self->{imageFile}, $self->{X}, $self->{Y}, $self->{dimX}, $self->{dimY}, $self->{noPixels});
 	}
 
 	sub std1 {
